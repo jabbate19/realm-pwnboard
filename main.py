@@ -27,6 +27,7 @@ while True:
     # do something with results
     for row in results:
         primary_ip = row[0]
+        print(primary_ip)
         response = requests.post('https://pwnboard.win/pwn/boxaccess', json={'ip': primary_ip, "applicatiomn": "realm"})
     # close cursor and connection
     cursor.close()
