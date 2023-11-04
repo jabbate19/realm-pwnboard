@@ -28,7 +28,7 @@ while True:
     for row in results:
         primary_ip = row[0]
         print(primary_ip)
-        response = requests.post('https://pwnboard.win/pwn/boxaccess', json={'ip': primary_ip, "applicatiomn": "realm"})
+        response = requests.post('https://pwnboard.win/pwn/boxaccess', json={'ip': primary_ip, "application": "realm"})
     # close cursor and connection
     cursor.close()
     sleep(sleep_time)
