@@ -8,10 +8,10 @@ MYSQL_USER = os.environ.get('MYSQL_USER')
 MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD')
 MYSQL_HOST = os.environ.get('MYSQL_HOST')
 MYSQL_DATABASE = os.environ.get('MYSQL_DATABASE')
-
+sleep_time = int(os.environ.get('SLEEP_TIME', 1))
 # establish connection to MySQL server
 cnx = mysql.connector.connect(user=MYSQL_USER, password=MYSQL_PASSWORD,
-                              host=MYSQL_HOST, database=MYSQL_DATABASE)
+                              host=MYSQL_HOST, database=MYSQL_DATABASE, auth_plugin='mysql_native_password')
 
 while True:
     # create cursor object to execute queries
@@ -30,5 +30,5 @@ while True:
         response = requests.post('https://pwnboard.win/pwn/boxaccess', json={'ip': primary_ip, "applicatiomn": "realm"})
     # close cursor and connection
     cursor.close()
-    sleep(1)
+    sleep(sleep_time)
 cnx.close()
