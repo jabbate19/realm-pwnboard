@@ -12,11 +12,11 @@ sleep_time = int(os.environ.get('SLEEP_TIME', 1))
 # establish connection to MySQL server
 cnx = mysql.connector.connect(user=MYSQL_USER, password=MYSQL_PASSWORD,
                               host=MYSQL_HOST, database=MYSQL_DATABASE, auth_plugin='mysql_native_password')
+cursor = cnx.cursor()
 
 while True:
     # create cursor object to execute queries
-    cursor = cnx.cursor()
-
+    
     # execute query
     query = "select hosts.primary_ip from beacons join hosts on beacons.beacon_host = hosts.id where beacons.last_seen_at > NOW()-5;"
     cursor.execute(query)
@@ -30,6 +30,5 @@ while True:
         print(primary_ip)
         response = requests.post('https://pwnboard.win/pwn/boxaccess', json={'ip': primary_ip, "application": "realm"})
     # close cursor and connection
-    cursor.close()
     sleep(sleep_time)
 cnx.close()
